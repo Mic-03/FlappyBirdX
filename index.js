@@ -206,8 +206,13 @@ function wallAdder() {
     let randHeight = int(random(minGapHeight, maxGapHeight));
     let randY = int(random(0, height - randHeight));
 
-    // {x, y, width, height, scoredFlag}
-    let randWall = [width, randY, wallWidth, randHeight, 0];
+    // generate warna random
+    let r = random(50, 255);
+    let g = random(50, 255);
+    let b = random(50, 255);
+
+    // {x, y, width, height, scoredFlag, r, g, b}
+    let randWall = [width, randY, wallWidth, randHeight, 0, r, g, b];
 
     walls.push(randWall);
     lastAddTime = millis();
@@ -231,22 +236,16 @@ function wallDrawer(index) {
   let gapWallWidth = wall[2];
   let gapWallHeight = wall[3];
 
-  fill(wallColors);
+  // ambil warna per-wall
+  let r = wall[5];
+  let g = wall[6];
+  let b = wall[7];
+
+  fill(r, g, b);
   rectMode(CORNER);
 
   rect(gapWallX, 0, gapWallWidth, gapWallY, 10);
   rect(gapWallX, gapWallY + gapWallHeight, gapWallWidth, height - (gapWallY + gapWallHeight), 10);
-}
-
-function wallMover(index) {
-  walls[index][0] -= wallSpeed;
-}
-
-function wallRemover(index) {
-  let w = walls[index];
-  if (w[0] + w[2] <= 0) {
-    walls.splice(index, 1);
-  }
 }
 
 function watchWallCollision(index) {
