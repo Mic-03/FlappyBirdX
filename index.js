@@ -208,8 +208,8 @@ function wallAdder() {
 
     // generate warna random
     let r = random(50, 255);
-    let g = random(50, 255);
-    let b = random(50, 255);
+    let g = random(255, 255);
+    let b = random(55, 255);
 
     // {x, y, width, height, scoredFlag, r, g, b}
     let randWall = [width, randY, wallWidth, randHeight, 0, r, g, b];
