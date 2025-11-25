@@ -35,6 +35,15 @@ let healthBarWidth = 60;
 
 let score = 0;
 
+let wallColorList = [
+  [0, 120, 255],   // biru
+  [255, 50, 50],   // merah
+  [255, 220, 0],   // kuning
+  [50, 200, 70],   // hijau
+  [180, 60, 255],  // ungu
+  [255, 120, 0]    // oranye
+];
+
 function setup() {
   createCanvas(500, 500);
   ballX = width / 4;
@@ -206,13 +215,20 @@ function wallAdder() {
     let randHeight = int(random(minGapHeight, maxGapHeight));
     let randY = int(random(0, height - randHeight));
 
-    // generate warna random
-    let r = random(50, 255);
-    let g = random(255, 255);
-    let b = random(55, 255);
+    let randColor = wallColorList[int(random(wallColorList.length))];
 
-    // {x, y, width, height, scoredFlag, r, g, b}
-    let randWall = [width, randY, wallWidth, randHeight, 0, r, g, b];
+    // Tambah warna ke dalam array wall → jadi elemen ke-5
+    // [x, y, width, height, scoredFlag, r, g, b]
+    let randWall = [
+      width,
+      randY,
+      wallWidth,
+      randHeight,
+      0,
+      randColor[0],
+      randColor[1],
+      randColor[2]
+    ];
 
     walls.push(randWall);
     lastAddTime = millis();
@@ -236,7 +252,7 @@ function wallDrawer(index) {
   let gapWallWidth = wall[2];
   let gapWallHeight = wall[3];
 
-  // ambil warna per-wall
+  // Ambil warna dari data wall
   let r = wall[5];
   let g = wall[6];
   let b = wall[7];
